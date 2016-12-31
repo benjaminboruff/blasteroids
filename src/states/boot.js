@@ -22,7 +22,7 @@ class Boot extends Phaser.State {
     this.game.load.image('loaderBar', './assets/images/loader-bar.png');
 
     // load game.config.json into game cache
-    this.game.load.json('config','src/game.config.json');
+    this.game.load.json('config','./game.config.json');
   }
 
   render () {
