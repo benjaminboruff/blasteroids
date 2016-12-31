@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
-import Config from '../game.config.json';
 import { centerGameObjects } from '../utils';
 
 class Load extends Phaser.State {
     init() {
-
+        // set game Config variable from game cache
+        this.Config = this.game.cache.getJSON('config');
     }
 
     preload() {
@@ -18,22 +18,22 @@ class Load extends Phaser.State {
         // Blasteroids assets
         //
 
-        this.game.load.image(Config.graphicAssets.asteroidLarge.name, Config.graphicAssets.asteroidLarge.URL);
-        this.game.load.image(Config.graphicAssets.asteroidMedium.name, Config.graphicAssets.asteroidMedium.URL);
-        this.game.load.image(Config.graphicAssets.asteroidSmall.name, Config.graphicAssets.asteroidSmall.URL);
+        this.game.load.image(this.Config.graphicAssets.asteroidLarge.name, this.Config.graphicAssets.asteroidLarge.URL);
+        this.game.load.image(this.Config.graphicAssets.asteroidMedium.name, this.Config.graphicAssets.asteroidMedium.URL);
+        this.game.load.image(this.Config.graphicAssets.asteroidSmall.name, this.Config.graphicAssets.asteroidSmall.URL);
 
-        this.game.load.image(Config.graphicAssets.bullet.name, Config.graphicAssets.bullet.URL);
-        this.game.load.image(Config.graphicAssets.ship.name, Config.graphicAssets.ship.URL);
+        this.game.load.image(this.Config.graphicAssets.bullet.name, this.Config.graphicAssets.bullet.URL);
+        this.game.load.image(this.Config.graphicAssets.ship.name, this.Config.graphicAssets.ship.URL);
 
-        this.game.load.audio(Config.soundAssets.destroyed.name, Config.soundAssets.destroyed.URL);
-        this.game.load.audio(Config.soundAssets.fire.name, Config.soundAssets.fire.URL);
+        this.game.load.audio(this.Config.soundAssets.destroyed.name, this.Config.soundAssets.destroyed.URL);
+        this.game.load.audio(this.Config.soundAssets.fire.name, this.Config.soundAssets.fire.URL);
 
-        this.game.load.image(Config.graphicAssets.background.name, Config.graphicAssets.background.URL);
-        this.game.load.spritesheet(Config.graphicAssets.explosionLarge.name, Config.graphicAssets.explosionLarge.URL, Config.graphicAssets.explosionLarge.width, Config.graphicAssets.explosionLarge.height, Config.graphicAssets.explosionLarge.frames);
-        this.game.load.spritesheet(Config.graphicAssets.explosionMedium.name, Config.graphicAssets.explosionMedium.URL, Config.graphicAssets.explosionMedium.width, Config.graphicAssets.explosionMedium.height, Config.graphicAssets.explosionMedium.frames);
-        this.game.load.spritesheet(Config.graphicAssets.explosionSmall.name, Config.graphicAssets.explosionSmall.URL, Config.graphicAssets.explosionSmall.width, Config.graphicAssets.explosionSmall.height, Config.graphicAssets.explosionSmall.frames);
+        this.game.load.image(this.Config.graphicAssets.background.name, this.Config.graphicAssets.background.URL);
+        this.game.load.spritesheet(this.Config.graphicAssets.explosionLarge.name, this.Config.graphicAssets.explosionLarge.URL, this.Config.graphicAssets.explosionLarge.width, this.Config.graphicAssets.explosionLarge.height, this.Config.graphicAssets.explosionLarge.frames);
+        this.game.load.spritesheet(this.Config.graphicAssets.explosionMedium.name, this.Config.graphicAssets.explosionMedium.URL, this.Config.graphicAssets.explosionMedium.width, this.Config.graphicAssets.explosionMedium.height, this.Config.graphicAssets.explosionMedium.frames);
+        this.game.load.spritesheet(this.Config.graphicAssets.explosionSmall.name, this.Config.graphicAssets.explosionSmall.URL, this.Config.graphicAssets.explosionSmall.width, this.Config.graphicAssets.explosionSmall.height, this.Config.graphicAssets.explosionSmall.frames);
 
-        this.game.load.atlasJSONHash(Config.graphicAssets.shipsheet.name, Config.graphicAssets.shipsheet.URL, Config.graphicAssets.shipsheet.data);
+        this.game.load.atlasJSONHash(this.Config.graphicAssets.shipsheet.name, this.Config.graphicAssets.shipsheet.URL, this.Config.graphicAssets.shipsheet.data);
     }
 
     create() {

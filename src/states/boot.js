@@ -18,13 +18,16 @@ class Boot extends Phaser.State {
     let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#ffffff', align: 'center' });
     text.anchor.set(0.5);
 
-    this.load.image('loaderBg', './assets/images/loader-bg.png');
-    this.load.image('loaderBar', './assets/images/loader-bar.png');
+    this.game.load.image('loaderBg', './assets/images/loader-bg.png');
+    this.game.load.image('loaderBar', './assets/images/loader-bar.png');
+
+    // load game.config.json into game cache
+    this.game.load.json('config','src/game.config.json');
   }
 
   render () {
     if (this.fontsReady) {
-      this.state.start('Load');
+      this.game.state.start('Load');
     }
   }
 
