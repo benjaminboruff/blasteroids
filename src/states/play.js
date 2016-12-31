@@ -291,12 +291,6 @@ class Play extends Phaser.State {
         //     this.game.state.start('GameOver');
         // }
     }
-
-    render() {
-        if (__DEV__) {
-            //this.game.debug.spriteInfo(this.mushroom, 32, 32);
-        }
-    }
 }
 
 export default Play;
