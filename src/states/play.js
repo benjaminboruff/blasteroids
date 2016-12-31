@@ -18,7 +18,7 @@ class Play extends Phaser.State {
         this.bulletInterval = 0;
         this.score = 0;
         this.asteroidsCount = this.Config.asteroidProperties.startingAsteroids;
-        this.shipLives = this.Config.shipProperties.startingLives;
+        //this.shipLives = this.Config.shipProperties.startingLives;
     }
     preload() {}
 
@@ -46,7 +46,7 @@ class Play extends Phaser.State {
         this.bulletGroup = this.game.add.group();
         this.asteroidGroup = this.game.add.group();
 
-        this.tf_lives = this.game.add.text(20, 10, this.Config.shipProperties.startingLives, this.Config.fontAssets.playFontStyle);
+        this.tf_lives = this.game.add.text(20, 10, this.ship.lives, this.Config.fontAssets.playFontStyle);
 
         this.tf_score = this.game.add.text(this.Config.gameProperties.screenWidth - 50, 10, "0", this.Config.fontAssets.playFontStyle);
         this.tf_score.align = 'right';
@@ -218,10 +218,10 @@ class Play extends Phaser.State {
     }
 
     destroyShip() {
-        this.shipLives--;
-        this.tf_lives.text = this.shipLives
+        this.ship.lives--;
+        this.tf_lives.text = this.ship.lives;
 
-        if (this.shipLives > 0) {
+        if (this.ship.lives > 0) {
             this.game.time.events.add(Phaser.Timer.SECOND * this.Config.shipProperties.timeToReset, this.resetShip, this);
         } else {
             this.game.time.events.add(Phaser.Timer.SECOND * this.Config.shipProperties.timeToReset, this.endGame, this);
