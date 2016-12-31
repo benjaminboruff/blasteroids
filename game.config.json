@@ -1,0 +1,146 @@
+{
+  "gameProperties": {
+    "screenWidth": "game.width",
+    "screenHeight": "game.height",
+    "delayToStartLevel": 3,
+    "padding": 30
+  },
+  "graphicAssets": {
+    "ship": {
+      "URL": "assets/images/f-off.png",
+      "name": "ship"
+    },
+    "shipsheet": {
+      "URL": "assets/images/material-ship.png",
+      "data": "assets/images/material-ship.json",
+      "name": "shipsheet",
+      "width": 280,
+      "height": 24,
+      "frames": 5
+    },
+    "bullet": {
+      "URL": "assets/images/bullet_blue.png",
+      "name": "bullet"
+    },
+    "asteroidLarge": {
+      "URL": "assets/images/asteroidL2.png",
+      "name": "asteroidLarge"
+    },
+    "asteroidMedium": {
+      "URL": "assets/images/asteroidM2.png",
+      "name": "asteroidMedium"
+    },
+    "asteroidSmall": {
+      "URL": "assets/images/asteroidS2.png",
+      "name": "asteroidSmall"
+    },
+    "background": {
+      "URL": "assets/images/farback.gif",
+      "name": "background"
+    },
+    "explosionLarge": {
+      "URL": "assets/images/explosionLarge.png",
+      "name": "explosionLarge",
+      "width": 64,
+      "height": 64,
+      "frames": 8
+    },
+    "explosionMedium": {
+      "URL": "assets/images/explosionMedium.png",
+      "name": "explosionMedium",
+      "width": 58,
+      "height": 58,
+      "frames": 8
+    },
+    "explosionSmall": {
+      "URL": "assets/images/explosionSmall.png",
+      "name": "explosionSmall",
+      "width": 41,
+      "height": 41,
+      "frames": 8
+    }
+  },
+  "soundAssets": {
+    "fire": {
+      "URL": [
+        "assets/sounds/fire.m4a",
+        "assets/sounds/fire.ogg"
+      ],
+      "name": "fire"
+    },
+    "destroyed": {
+      "URL": [
+        "assets/sounds/destroyed.m4a",
+        "assets/sounds/destroyed.ogg"
+      ],
+      "name": "destroyed"
+    }
+  },
+  "shipProperties": {
+    "startX": "gameProperties.screenWidth * 0.5",
+    "startY": "gameProperties.screenHeight * 0.5",
+    "acceleration": 300,
+    "drag": 100,
+    "maxVelocity": 300,
+    "angularVelocity": 200,
+    "startingLives": 3,
+    "timeToReset": 3,
+    "blinkDelay": 0.2
+  },
+  "bulletProperties": {
+    "speed": 400,
+    "interval": 250,
+    "lifespan": 2000,
+    "maxCount": 30
+  },
+  "asteroidProperties": {
+    "startingAsteroids": 4,
+    "maxAsteroids": 20,
+    "incrementAsteroids": 2,
+    "asteroidLarge": {
+      "minVelocity": 50,
+      "maxVelocity": 150,
+      "minAngularVelocity": 0,
+      "maxAngularVelocity": 200,
+      "score": 20,
+      "nextSize": "graphicAssets.asteroidMedium.name",
+      "pieces": 2,
+      "explosion": "explosionLarge"
+    },
+    "asteroidMedium": {
+      "minVelocity": 50,
+      "maxVelocity": 200,
+      "minAngularVelocity": 0,
+      "maxAngularVelocity": 200,
+      "score": 50,
+      "nextSize": "graphicAssets.asteroidSmall.name",
+      "pieces": 2,
+      "explosion": "explosionMedium"
+    },
+    "asteroidSmall": {
+      "minVelocity": 50,
+      "maxVelocity": 300,
+      "minAngularVelocity": 0,
+      "maxAngularVelocity": 200,
+      "score": 100,
+      "explosion": "explosionSmall"
+    }
+  },
+  "fontAssets": {
+    "menuFontStyle": {
+      "font": "20px Roboto",
+      "fill": "#77BFA3",
+      "align": "center"
+    },
+    "playFontStyle": {
+      "font": "20px Roboto",
+      "fill": "#FFFFFF",
+      "align": "center"
+    },
+    "gameoverFontStyle": {
+      "font": "50px Roboto",
+      "fill": "#77BFA3",
+      "align": "center"
+    }
+  }
+}
