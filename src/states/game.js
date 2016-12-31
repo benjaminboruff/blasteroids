@@ -11,8 +11,8 @@ import GameOver from './gameover';
 class Game extends Phaser.Game {
 
   constructor () {
-    let width = '99%';
-    let height = '99%';
+    let width = '100%';
+    let height = '100%';
 
     super(width, height, Phaser.AUTO, 'root', null)
 

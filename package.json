@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "webpack",
     "build": "webpack --config webpack.production.config.js",
+    "deploy": "yarn build&&gh-pages -d build",
     "test": "standard"
   },
   "license": "MIT",
@@ -22,6 +23,7 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "expose-loader": "^0.7.1",
+    "gh-pages": "^0.12.0",
     "json-loader": "^0.5.4",
     "webpack": "^1.14.0"
   },
