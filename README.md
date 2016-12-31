@@ -1,18 +1,5 @@
-# Phaser + ES6 + Webpack.
-#### A bootstrap project to create games with Phaser + ES6 + Webpack.
-
-![Phaser+ES6+Webpack](https://raw.githubusercontent.com/lean/phaser-es6-webpack/master/assets/images/phaser-es6-webpack.jpg)
-
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
-
-## Features
-- ESLINT with JavaScript Standard Style configuration
-- Next generation of Javascript
-- Webpack ready
-- Multiple browser testing
-- WebFont Loader
-
+# Blasteroids!
+#### An ES2015/Phaser game a la Asteroids
 
 # Setup
 To use this bootstrap you’ll need to install a few things before you have a working copy of the project.
@@ -24,7 +11,7 @@ Navigate into your workspace directory.
 Run:
 
 ```
-git clone git@github.com:benjaminboruff/phaser-es6-webpack.git
+git clone git@github.com:benjaminboruff/blasteroids.git
 ```
 
 ## 2. Install node.js :
