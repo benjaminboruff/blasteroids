@@ -41,6 +41,7 @@ module.exports = {
   ],
   module: {
     loaders: [
+      { test: /\.json$/, loader: 'json' },
       { test: /\.js$/, loader: 'babel', include: path.join(__dirname, 'src') },
       { test: /pixi\.js/, loader: 'expose?PIXI' },
       { test: /phaser-split\.js$/, loader: 'expose?Phaser' },
