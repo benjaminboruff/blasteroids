@@ -54,23 +54,9 @@ class Play extends Phaser.State {
         this.tf_score.align = 'right';
         this.tf_score.anchor.set(1, 0);
 
-        this.explosionLargeGroup = this.game.add.group();
-        this.explosionLargeGroup.createMultiple(20, this.Config.graphicAssets.explosionLarge.name, 0);
-        this.explosionLargeGroup.setAll('anchor.x', 0.5);
-        this.explosionLargeGroup.setAll('anchor.y', 0.5);
-        this.explosionLargeGroup.callAll('animations.add', 'animations', 'explode', null, 30);
-
-        this.explosionMediumGroup = this.game.add.group();
-        this.explosionMediumGroup.createMultiple(20, this.Config.graphicAssets.explosionMedium.name, 0);
-        this.explosionMediumGroup.setAll('anchor.x', 0.5);
-        this.explosionMediumGroup.setAll('anchor.y', 0.5);
-        this.explosionMediumGroup.callAll('animations.add', 'animations', 'explode', null, 30);
-
-        this.explosionSmallGroup = this.game.add.group();
-        this.explosionSmallGroup.createMultiple(20, this.Config.graphicAssets.explosionSmall.name, 0);
-        this.explosionSmallGroup.setAll('anchor.x', 0.5);
-        this.explosionSmallGroup.setAll('anchor.y', 0.5);
-        this.explosionSmallGroup.callAll('animations.add', 'animations', 'explode', null, 30);
+        this.explosionLargeGroup = this.makeExplosionGroup(this.game, 'large');
+        this.explosionMediumGroup = this.makeExplosionGroup(this.game, 'medium');
+        this.explosionSmallGroup = this.makeExplosionGroup(this.game, 'small');
     }
 
     initSounds() {
@@ -95,6 +81,26 @@ class Play extends Phaser.State {
         this.key_right = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         this.key_thrust = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.key_fire = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    }
+
+    makeExplosionGroup(game, size) {
+      let group = game.add.group();
+      let explosionName = "";
+
+      if(size === 'large') {
+        explosionName = this.Config.graphicAssets.explosionLarge.name;
+      } else if(size === 'medium') {
+        explosionName = this.Config.graphicAssets.explosionMedium.name;
+      } else {
+        explosionName = this.Config.graphicAssets.explosionSmall.name;
+      }
+
+      group.createMultiple(20, explosionName, 0);
+      group.setAll('anchor.x', 0.5);
+      group.setAll('anchor.y', 0.5);
+      group.callAll('animations.add', 'animations', 'explode', null, 30);
+
+      return group;
     }
 
     checkPlayerInput() {
