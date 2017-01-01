@@ -18,7 +18,9 @@ class Play extends Phaser.State {
         this.bulletInterval = 0;
         this.score = 0;
         this.asteroidsCount = this.Config.asteroidProperties.startingAsteroids;
-        //this.shipLives = this.Config.shipProperties.startingLives;
+
+        // start physics system
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
     }
     preload() {}
 
@@ -73,16 +75,10 @@ class Play extends Phaser.State {
 
     initSounds() {
         this.sndDestroyed = this.game.add.audio(this.Config.soundAssets.destroyed.name);
-        this.sndFire = this.game.add.audio(this.Config.soundAssets.fire.name);
+        this.sndFire = this.game.add.audio(this.ship.sound.fire);
     }
 
     initPhysics() {
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
-        this.game.physics.enable(this.ship, Phaser.Physics.ARCADE);
-        this.ship.body.drag.set(this.Config.shipProperties.drag);
-        this.ship.body.maxVelocity.set(this.Config.shipProperties.maxVelocity);
-
         this.bulletGroup.enableBody = true;
         this.bulletGroup.physicsBodyType = Phaser.Physics.ARCADE;
         this.bulletGroup.createMultiple(this.Config.bulletProperties.maxCount, this.Config.graphicAssets.bullet.name);
@@ -103,20 +99,17 @@ class Play extends Phaser.State {
 
     checkPlayerInput() {
         if (this.key_left.isDown) {
-            this.ship.body.angularVelocity = -this.Config.shipProperties.angularVelocity;
+            this.ship.moveShip('left');
         } else if (this.key_right.isDown) {
-            this.ship.body.angularVelocity = this.Config.shipProperties.angularVelocity;
+            this.ship.moveShip('right');
         } else {
-            this.ship.body.angularVelocity = 0;
+            this.ship.moveShip('stop');
         }
 
         if (this.key_thrust.isDown) {
-            this.game.physics.arcade.accelerationFromRotation(this.ship.rotation, this.Config.shipProperties.acceleration, this.ship.body.acceleration);
-            this.ship.animations.play('thrust');
+          this.ship.thrustShip('on');
         } else {
-            this.ship.body.acceleration.set(0);
-            this.ship.animations.stop();
-            this.ship.frame = 0;
+          this.ship.thrustShip('off');
         }
 
         if (this.key_fire.isDown) {
@@ -201,7 +194,11 @@ class Play extends Phaser.State {
         asteroid.kill();
 
         if (target.key == this.Config.graphicAssets.shipsheet.name) {
-            this.destroyShip();
+            this.ship.destroyShip();
+            this.tf_lives.text = this.ship.lives;
+            let explosion = this.explosionLargeGroup.getFirstExists(false);
+            explosion.reset(this.ship.x, this.ship.y);
+            explosion.animations.play('explode', 30, false, true);
         }
 
         this.splitAsteroid(asteroid);
@@ -215,39 +212,6 @@ class Play extends Phaser.State {
         let explosion = this[explosionGroup].getFirstExists(false);
         explosion.reset(asteroid.x, asteroid.y);
         explosion.animations.play('explode', null, false, true);
-    }
-
-    destroyShip() {
-        this.ship.lives--;
-        this.tf_lives.text = this.ship.lives;
-
-        if (this.ship.lives > 0) {
-            this.game.time.events.add(Phaser.Timer.SECOND * this.Config.shipProperties.timeToReset, this.resetShip, this);
-        } else {
-            this.game.time.events.add(Phaser.Timer.SECOND * this.Config.shipProperties.timeToReset, this.endGame, this);
-        }
-
-        let explosion = this.explosionLargeGroup.getFirstExists(false);
-        explosion.reset(this.ship.x, this.ship.y);
-        explosion.animations.play('explode', 30, false, true);
-    }
-
-    resetShip() {
-        this.shipIsInvulnerable = true;
-        this.ship.reset(this.Config.gameProperties.screenWidth / 2, this.Config.gameProperties.screenHeight / 2);
-        this.ship.angle = -90;
-
-        game.time.events.add(Phaser.Timer.SECOND * this.Config.shipProperties.timeToReset, this.shipReady, this);
-        this.game.time.events.repeat(Phaser.Timer.SECOND * this.Config.shipProperties.blinkDelay, this.Config.shipProperties.timeToReset / this.Config.shipProperties.blinkDelay, this.shipBlink, this);
-    }
-
-    shipReady() {
-        this.shipIsInvulnerable = false;
-        this.ship.visible = true;
-    }
-
-    shipBlink() {
-        this.ship.visible = !this.ship.visible;
     }
 
     splitAsteroid(asteroid) {
@@ -271,11 +235,6 @@ class Play extends Phaser.State {
         this.resetAsteroids();
     }
 
-    endGame() {
-        this.game.state.start('GameOver');
-    }
-
-
     update() {
 
         this.checkPlayerInput();
@@ -285,13 +244,10 @@ class Play extends Phaser.State {
 
         this.game.physics.arcade.overlap(this.bulletGroup, this.asteroidGroup, this.asteroidCollision, null, this);
 
-        if (!this.shipIsInvulnerable) {
+        if (!this.ship.invulnerable) {
             game.physics.arcade.overlap(this.ship, this.asteroidGroup, this.asteroidCollision, null, this);
         }
 
-        // if (this.game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)) {
-        //     this.game.state.start('GameOver');
-        // }
     }
 }
 
