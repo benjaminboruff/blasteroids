@@ -2,7 +2,7 @@
 #### An ES2015/Phaser game a la Asteroids
 
 # Setup
-To use this bootstrap you’ll need to install a few things before you have a working copy of the project.
+You need to follow steps 1-4 before you have a working copy of the project.
 
 ## 1. Clone this repo:
 
